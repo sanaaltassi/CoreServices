@@ -1,14 +1,15 @@
+import 'package:corereservation/Style/colorstyle.dart';
+import 'package:corereservation/providers/providerfacilitiestate.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'data.dart';
-import 'itemWidget.dart';
+import 'LoginPage/login.dart';
+import 'setting/facility.dart';
+import 'home.dart';
 
 void main() {
-  runApp(MyApp()/*MultiProvider(
-      providers: [ChangeNotifierProvider(create: (conext) => Data() ),],
-      child: MyApp()
-  )*/
-  );
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (conext) => FaciitiesPageState()),
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -17,44 +18,52 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        //body:Login();
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          leading: IconButton(
-        icon: Image.asset('images/appbarr.PNG'), onPressed: () {  },
+          backgroundColor: ColorStyle.backGround,
+          leading:CircleAvatar(
+            backgroundColor: ColorStyle.backGround,
+            radius: 40,
+            child: const CircleAvatar(
+              radius: 35,
+              backgroundImage: AssetImage(
+                "images/appbarr.PNG",
+              ),
+            ),
           ),
+
           title: Flexible(
             child: Column(
-              children: const <Widget>[
-
-              Text(
-                "Welcome!",
-                style: TextStyle(
-                  color: Colors.purple,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-
-              ),
-                Text( "Fawzy Fawaz",
+              children: <Widget>[
+                Text(
+                  "Welcome!",
                   style: TextStyle(
-                    color: Colors.purple,
+                    color: ColorStyle.text,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  "Fawzy Fawaz",
+                  style: TextStyle(
+                    color: ColorStyle.text,
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                   ),
-
                 ),
               ],
             ),
           ),
-
-
         ),
+         // body: Login(),
         body: ListView.builder(
             itemCount: Data.items.length,
             itemBuilder: (context, index) {
               return ItemWidget(item: Data.items[index]);
             }),
+
       ),
     );
+
   }
 }
